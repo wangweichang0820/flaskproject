@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% import 'pagination.html' as helper %}
+{% block stylesheets %}
+
+
+{% endblock %}
+
+{% block page_head %}
+    <!-- page head start-->
+    <div class="page-head">
+        <h3 class="m-b-less">
+            文件管理
+        </h3>
+        <!--<span class="sub-title">Welcome to Static Table</span>-->
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">文件管理</a></li>
+                <li class="active">文件上传</li>
+            </ol>
+        </div>
+    </div>
+    <!-- page head end-->
+{% endblock %}
+
+{% block main_content %}
+
+    <!--body wrapper start-->
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading head-border">
+                        文件信息
+                    </header>
+                    <table class="table table-striped custom-table table-hover">
+                        <thead>
+                        <tr>
+                            <th><i class="fa fa-bookmark-o"></i> ID</th>
+                            <th class="hidden-xs"><i class="fa fa-building-o"></i> 文件名称</th>
+                            <th><i class="fa fa-bar-chart-o"></i> 保存名称</th>
+                            <th><i class="fa fa-line-chart"></i> 文件扩展名</th>
+                            <th><i class=" fa fa-edit"></i> 文件大小</th>
+                            <th class="hidden-xs"><i class="fa fa-cogs"></i> 所属分类</th>
+                            <th><i class=" fa fa-edit"></i> 上传时间</th>
+                            <th><i class=" fa fa-edit"></i> 保存路径</th>
+                            <th><i class=" fa fa-edit"></i> 上传人</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in fileinfo.items %}
+
+                            <tr>
+                                <td>
+                                    <a href="#">
+                                        {{ item.id }}
+                                    </a>
+                                </td>
+                                <td class="hidden-xs">{{ item.filename }}</td>
+                                <td>{{ item.savename }}</td>
+                                <td>{{ item.extensionname }}</td>
+                                <td>{{ item.filesize }}</td>
+                                <td>{{ item.file_category }}</td>
+                                <td><span class="label label-warning label-mini">{{ item.uploadtime }}</span></td>
+                                <td><span class="label label-warning label-mini">{{ item.savepath }}</span></td>
+                                <td><span class="label label-warning label-mini">{{ item.username }}</span></td>
+                                <td class="hidden-xs">
+                                    <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
+                                    <a href="{{ url_for('admin.file_edit',id=item.id) }}" class="btn btn-primary btn-xs"><i
+                                            class="fa fa-pencil"></i></a>
+                                    <a href="{{ url_for('admin.file_del',id=item.id) }}" class="btn btn-danger btn-xs"><i
+                                            class="fa fa-trash-o "></i></a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                        {{ helper.render_pagination(fileinfo,'filemaneger.file_list') }}
+                </section>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+

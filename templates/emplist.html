@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% import 'pagination.html' as helper %}
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block page_head %}
+    <!-- page head start-->
+    <div class="page-head">
+        <h3 class="m-b-less">
+            用户列表
+        </h3>
+        <!--<span class="sub-title">Welcome to Static Table</span>-->
+        <div class="state-information">
+            <ol class="breadcrumb m-b-less bg-less">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">人事管理</a></li>
+                <li class="active">用户列表</li>
+            </ol>
+        </div>
+    </div>
+    <!-- page head end-->
+{% endblock %}
+
+{% block main_content %}
+
+    <!--body wrapper start-->
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading head-border">
+                        用户信息
+                    </header>
+                    <table class="table table-striped custom-table table-hover">
+                        <thead>
+                        <tr>
+                            <th><i class="fa fa-bookmark-o"></i> ID</th>
+                            <th class="hidden-xs"><i class="fa fa-building-o"></i> 姓名</th>
+                            <th><i class="fa fa-bar-chart-o"></i> 性别</th>
+                            <th><i class="fa fa-line-chart"></i> 生日</th>
+                            <th><i class=" fa fa-edit"></i> 地址</th>
+                            <th class="hidden-xs"><i class="fa fa-cogs"></i> 操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in employees.items %}
+
+                            <tr>
+                                <td>
+                                    <a href="#">
+                                        {{ item.id }}
+                                    </a>
+                                </td>
+                                <td class="hidden-xs">{{ item.name }}</td>
+                                <td>{{ item.gender }}</td>
+                                <td>{{ item.birthdate.strftime('%Y-%m-%d') }}</td>
+                                <td><span class="label label-warning label-mini">{{ item.address }}</span></td>
+                                <td class="hidden-xs">
+                                    <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
+                                    <a href="{{ url_for('admin.emp_edit',id=item.id) }}" class="btn btn-primary btn-xs"><i
+                                            class="fa fa-pencil"></i></a>
+                                    <a href="{{ url_for('admin.emp_del',id=item.id) }}" class="btn btn-danger btn-xs"><i
+                                            class="fa fa-trash-o "></i></a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                        {{ helper.render_pagination(employees,'admin.emp_list') }}
+                </section>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
